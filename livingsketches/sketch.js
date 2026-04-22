@@ -4,7 +4,7 @@ let totalPics = 4;
 
 function preload() {
   for (let i = 1; i <= totalPics; i++) {
-    pics.push(loadImage("pic-" + i + ".png"));
+    pics.push(loadImage("assets/pic-" + i + ".png"));
   }
 }
 
