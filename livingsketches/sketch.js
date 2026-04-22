@@ -15,13 +15,7 @@ function setup() {
 function draw() {
   background(255);
   let yOffset = sin(frameCount / 10) * 20;
-  image(
-    pics[curPic],
-    0,
-    yOffset,
-    width,
-    height
-  );
+  image(pics[curPic], 0, yOffset, width, height);
 
   curPic = floor((frameCount / 30) % pics.length);
 }
