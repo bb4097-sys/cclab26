@@ -1,56 +1,49 @@
-let faceMesh;
+let handPose;
 let video;
-let faces = [];
+let hands = [];
 
-let options = { maxFaces: 1, refineLandmarks: false, flipped: false };
+let options = { maxHands: 1, flipped: false};
+
 
 function preload() {
-  faceMesh = ml5.faceMesh(options);
+  handPose = ml5.handPose(options);
 }
-
 function setup() {
   createCanvas(640, 480);
+  // Create the video and hide it
   video = createCapture(VIDEO);
   video.size(640, 480);
   video.hide();
-  faceMesh.detectStart(video, gotFaces);
+  // Start detecting hands from the webcam video
+  handPose.detectStart(video, gotHands);
+}
+// Callback function for when handPose outputs data
+function gotHands(results) {
+  // Save the output to the hands variable
+  hands = results;
 }
 
 function draw() {
-  //background(220);
+  background(220);
+  push();
+  translate(width, 0);
+  scale(-1,1);
   image(video, 0, 0, width, height);
-  // Draw all the tracked face points
-  for (let i = 0; i < faces.length; i++) {
-
-    let face = faces[i];
-    let p1 = face.keypoints[0];
-    let p2 = face.keypoints[14];
-    fill(0, 255, 0);
-    noStroke();
-    circle(p1.x, p1.y, 5);
-    circle(p2.x, p2.y, 5);
-    let d = dist(p1.x, p1.y, p2.x, p2.y);
-    let op = map(d, 0, 50, 0, 255);
-    background(0, op);
-
-    for (let j = 0; j < face.keypoints.length; j++) {
-      let keypoint = face.keypoints[j];
-      //let d = dist(mouseX, mouseY, keypoint.x, keypoint.y);
-      //if (d < 5) {
-      // textSize(24);
-      //  text(j, keypoint.x, keypoint.y);
-      //}
-      //fill(0, 255, 0);
-      //noStroke();
-      //circle(keypoint.x, keypoint.y, 5);
+  // Draw all the tracked hand points
+  for (let i = 0; i < hands.length; i++) {
+    let hand = hands[i];
+    for (let j = 0; j < hand.keypoints.length; j++) {
+      let keypoint = hand.keypoints[j];
+      fill(0, 255, 0);
+      noStroke();
+      circle(keypoint.x, keypoint.y, 10);
     }
   }
+  pop();
 }
-// Callback function for when faceMesh outputs data
-function gotFaces(results) {
-  // Save the output to the faces variable
-  faces = results;
-}
+
+
+
 
 
 

@@ -1,0 +1,34 @@
+/* no border by default */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+/* the sketch position */
+#p5-canvas-container {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+/* everything: the sketch and the title */
+#main-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+/* format the title in the middle */
+.title-div {
+/* remove background-color if you want it transparent */
+  background-color: white;
+  position: absolute;
+  width: 200px;
+  height: 80px;
+/* this will calculate the middle of the screen whatever the size is */
+  left: calc(50% - 100px);
+  top: calc(50% - 40px);
+}
+
